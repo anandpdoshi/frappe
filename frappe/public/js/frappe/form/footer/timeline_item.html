@@ -5,7 +5,7 @@
 	</span>
 	{% } %}
 
-	<div class="pull-left media-body" style="max-width: calc(100% - 50px); padding-right: 0px;">
+	<div class="pull-left media-body" style="max-width: calc(100% - 56px);">
 		<div class="media-content-wrapper">
 			<div class="pull-right close-btn-container">
 				<span class="small text-muted">
@@ -14,7 +14,7 @@
 			</div>
 			{% if(data.communication_type==="Communication" || (data.communication_type==="Comment" && data.comment_type==="Comment")) { %}
 				<div class="comment-header small">
-                    <i class="{%= data.icon %} icon-fixed-width"></i>
+                    <i class="{%= data.icon %}"></i>
                     <span title="{%= data.comment_by %}">{%= data.fullname %}</span>
 					<span>
 						{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
@@ -74,10 +74,28 @@
         			<div>
         				{%= data.content_html %}
         			</div>
+					{% if(data.attachments && data.attachments.length) { %}
+					<div style="margin: 10px 0px">
+						{% $.each(data.attachments, function(i, a) { %}
+						<div class="text-ellipsis">
+							<a href="{%= a.file_url.replace(/#/g, \'%23\') %}" class="text-muted small" target="_blank">
+								<i class="icon-paperclip"></i>
+								{%= a.file_url.split("/").slice(-1)[0] %}
+								{% if (a.is_private) { %}
+								<i class="icon icon-lock text-warning"></i>
+								{% } %}
+							</a>
+						</div>
+						{% }); %}
+					</div>
+					{% } %}
                 </div>
             {% } else if(in_list(["Assignment Completed", "Assigned", "Shared", "Unshared"], data.comment_type)) { %}
                 <div class="small">
-                    <i class="{%= data.icon %} icon-fixed-width"></i>
+					<div class="timeline-icon">
+						<i class="{%= data.icon %}"></i>
+					</div>
+					<div class="inline-block notification-content-text">
 						{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
 							<a href="#Form/{%= data.reference_doctype %}/{%= data.reference_name %}">
 								<strong>{{ __(data.reference_doctype) }}</strong> {{ data.reference_name }}
@@ -91,50 +109,40 @@
 						{% if(data.link_doctype && data.link_name) { %}
 						</a>
 						{% } %}
-                        <span class="text-muted" style="font-weight: normal;">
-                        &ndash; {%= data.comment_on %}</span>
+	                    <span class="text-muted" style="font-weight: normal;">
+	                    &ndash; {%= data.comment_on %}</span>
+					</div>
                 </div>
             {% } else { %}
                 <div class="small">
-                    <i class="{%= data.icon %} icon-fixed-width"></i>
-					{% if (data.comment_type == "Like") { %}
-					<span title="{%= data.comment_by %}">
-						{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
-							<a href="#Form/{%= data.reference_doctype %}/{%= data.reference_name %}">
-								<strong>{{ __(data.reference_doctype) }}</strong> {{ data.reference_name }}
-							</a> &ndash;
+					<div class="timeline-icon">
+	                    <i class="{%= data.icon %}"></i>
+					</div>
+					<div class="inline-block notification-content-text">
+						{% if (data.comment_type == "Like") { %}
+						<span title="{%= data.comment_by %}">
+							{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
+								<a href="#Form/{%= data.reference_doctype %}/{%= data.reference_name %}">
+									<strong>{{ __(data.reference_doctype) }}</strong> {{ data.reference_name }}
+								</a> &ndash;
+							{% } %}
+							{%= __("Liked by {0}", [data.fullname]) %}
+						</span>
+						{% } else { %}
+	                    	<span title="{%= data.comment_by %}">{%= data.fullname %}</span>
+							{%= data.content %}
+							{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
+								 &ndash;
+								 <a href="#Form/{%= data.reference_doctype %}/{%= data.reference_name %}">
+									<strong>{{ __(data.reference_doctype) }}</strong> {{ data.reference_name }}
+								</a>
+							{% } %}
 						{% } %}
-						{%= __("Liked by {0}", [data.fullname]) %}
-					</span>
-					{% } else { %}
-                    	<span title="{%= data.comment_by %}">{%= data.fullname %}</span>
-						{%= data.content %}
-						{% if (data.timeline_doctype===data.frm.doc.doctype && data.timeline_name===data.frm.doc.name) { %}
-							 &ndash;
-							 <a href="#Form/{%= data.reference_doctype %}/{%= data.reference_name %}">
-								<strong>{{ __(data.reference_doctype) }}</strong> {{ data.reference_name }}
-							</a>
-						{% } %}
-					{% } %}
-                    <span class="text-muted" style="font-weight: normal;">
-                    &ndash; {%= data.comment_on %}</span>
+	                    <span class="text-muted" style="font-weight: normal;">
+	                    &ndash; {%= data.comment_on %}</span>
+					</div>
                 </div>
             {% } %}
-			{% if(data.attachments && data.attachments.length) { %}
-			<div style="margin: 10px 0px">
-				{% $.each(data.attachments, function(i, a) { %}
-				<div class="text-ellipsis">
-					<a href="{%= a.file_url.replace(/#/g, \'%23\') %}" class="text-muted small" target="_blank">
-						<i class="icon-paperclip"></i>
-						{%= a.file_url.split("/").slice(-1)[0] %}
-						{% if (a.is_private) { %}
-						<i class="icon icon-lock text-warning"></i>
-						{% } %}
-					</a>
-				</div>
-				{% }); %}
-			</div>
-			{% } %}
 		</div>
 	</div>
 </div>

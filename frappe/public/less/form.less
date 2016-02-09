@@ -112,8 +112,6 @@
 }
 
 .timeline {
-	margin: 30px 0px;
-
 	.timeline-head {
 		.comment-input {
 			height: auto;
@@ -123,6 +121,7 @@
 
 .timeline-item {
 	margin-top: 0px;
+	position: relative;
 
 	blockquote {
 		font-size: inherit;
@@ -130,6 +129,10 @@
 
 	.btn-more {
 		margin-left: 65px;
+	}
+
+	.avatar {
+		padding: 2px;
 	}
 }
 
@@ -139,6 +142,7 @@
 
 .timeline {
 	position: relative;
+	padding: 30px 0px;
 }
 
 .timeline::before {
@@ -146,8 +150,8 @@
 	border-left: 1px solid @border-color;
 	position: absolute;
 	top: 0px;
-	bottom: -124px;
-	left: 43px;
+	bottom: -93px;
+	left: 67px;
 	z-index: -1;
 }
 
@@ -158,12 +162,13 @@
 }
 
 .timeline-item.user-content {
-	margin: 30px 0px 30px 30px;
+	margin: 30px 0px;
 
 	.media-body {
 		border: 1px solid @border-color;
 		border-radius: 2px;
-		margin-left: -7px;
+		padding-right: 0px;
+		margin-left: 2px;
 		position: relative;
 
 		// to display the triangle beside the box
@@ -185,6 +190,7 @@
 
 	.reply {
 		padding: 10px 15px;
+		background-color: white;
 
 		& > div > p:first-child {
 			margin-top: 0px;
@@ -217,33 +223,52 @@
 	.media-body:after {
 		border-color: rgba(136, 183, 213, 0);
 	    border-right-color: #fafbfc;
-	    border-width: 6px;
-	    margin-top: -6px;
+	    border-width: 7px;
+	    margin-top: -7px;
 	}
 	.media-body:before {
 		border-color: rgba(194, 225, 245, 0);
 	    border-right-color: @border-color;
-	    border-width: 7px;
-	    margin-top: -7px;
+	    border-width: 8px;
+	    margin-top: -8px;
 	}
 }
 
 .timeline-item.notification-content {
-	padding-left: 30px;
+	padding-left: 53px;
 	margin: 30px 0px;
-	position: relative;
 	color: @text-muted;
 
 	* {
 		color: @text-muted;
 	}
 
-	.icon-fixed-width {
-		margin-left: 36px;
-	}
-
 	.octicon-heart {
 		color: @heart-color !important;
+	}
+
+	.timeline-icon {
+	    background-color: @light-bg;
+		border: 1px solid @border-color;
+	    border-radius: 50%;
+	    width: 30px;
+	    height: 30px;
+		text-align: center;
+		display: inline-block;
+		position: relative;
+		top: -5px;
+
+		i {
+			// vertical centering of icon
+			position: relative;
+			top: 50%;
+			transform: translateY(-50%);
+		}
+	}
+
+	.notification-content-text {
+		padding-top: 10px;
+		padding-left: 5px;
 	}
 }
 
@@ -255,14 +280,14 @@
 	// background-color: white;
 	// border: 1px solid @border-color;
     position: absolute;
-    left: 40px;
+    left: 64px;
     border-radius: 50%;
     top: 5px;
 }
 
-.timeline-item.notification-content::before {
-    .timeline-indicator();
-}
+// .timeline-item.notification-content::before {
+//     .timeline-indicator();
+// }
 
 .timeline-item .reply-link {
 	padding-left: 7px;
@@ -303,14 +328,13 @@
 }
 
 .timeline-new-email {
-	margin: 30px 0px;
-	padding: 0px 65px;
+	padding: 0px 90px 30px;
 	position: relative;
 }
 
-.timeline-new-email::before {
-	.timeline-indicator();
-}
+// .timeline-new-email::before {
+// 	.timeline-indicator();
+// }
 
 .form-footer h5 {
 	margin: 15px 0px;
